@@ -1,6 +1,27 @@
 body {
-    background-color: white;
+    background-color: slategray;
+    color: black;
     font-family: Arial, Helvetica, sans-serif;
+}
+
+#title {
+    text-align: center;
+}
+
+.images {
+    margin: auto;
+}
+
+.btn {
+    color: black;
+}
+
+.list-group-item {
+    background-color: lightgrey;
+}
+
+#note {
+    margin-bottom: 10px;
 }
 
 .jumbotron {

@@ -1,0 +1,76 @@
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <a href="/"><h1>Macrumors News Scraper</h1></a>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <h3 data-id="{{article._id}}">Article Title {{article.title}}</h3>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <ul class="list-group">
+                <li class="list-group-item">
+                    <div class="row">
+                        <div class="col-4">
+                            <h4>{{article.title}}</h4>
+                        </div>
+                        <div class="col-0"></div>
+                        <div class="col-5">
+                            <p>{{url}}</p>
+                            <p><a href="{{url}}">{{url}}</a></p>
+                        </div>
+                        <div class="col-3">
+                        </div>
+                    </div>
+                </li>
+            </ul>
+            <br><br>
+        </div> 
+    </div>
+    <div class="row">
+        <div id="note-list" class="col-12">
+            <p>Notes for this article:</p>
+            <ul class="list-group">
+                {{#each article.note}}
+                <li class="list-group-item">
+                    <div class="row">
+                        <div class="col-4">
+                            <h4>{{title}}</h4>
+                        </div>
+                        <div class="col-0"></div>
+                        <div class="col-5">
+                            <p>{{body}}</p>
+                        </div>
+                        <div class="col-3">
+                            <button class="btn btn-primary delete" type="button" data-id="{{_id}}">Delete Note</button>
+                        </div>
+                    </div>
+                </li>
+                {{/each}}
+            </ul>
+            <br><br>
+        </div> 
+    </div>
+    <div class="row">
+        <div class="col-7">
+            <form>
+                <div class="form-group">
+                    <label for="new-title">Title:</label>
+                    <input type="text" class="form-control" id="new-title">
+                </div>
+                <div class="form-group">
+                    <label for="new-body"></label>
+                    <textarea class="form-control" rows="4" placeholder="Enter your note..." id="new-body"></textarea>
+                </div>
+                <button type="button" class="btn btn-primary post" data-id="{{article._id}}">Post Note</button>
+            </form>
+            <br><br>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="/notes.js"></script>
