@@ -146,7 +146,7 @@ app.delete("/delete/:id", function(req, res) {
     );
 });
 // Delete note from article
-app.delete("/notes/delete/:id", function(req, res) {
+app.delete("/note/delete/:id", function(req, res) {
 
     db.Note.deleteOne({
             _id: req.params.id
