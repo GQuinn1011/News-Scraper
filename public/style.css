@@ -1,0 +1,76 @@
+body {
+    background-color: slategray;
+    color: black;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+#title {
+    text-align: center;
+}
+
+.images {
+    margin: auto;
+}
+
+.btn {
+    color: black;
+    margin-bottom: 10px;
+}
+
+.list-group-item {
+    background-color: lightgrey;
+}
+
+.list-group {
+    color: black;
+}
+
+.jumbotron {
+    text-align: center;
+}
+
+h1,
+h2 {
+    text-align: center;
+}
+
+.scraper {
+    justify-items: center;
+}
+
+#wrapper {
+    width: 960px;
+    margin-left: auto;
+    margin-right: auto;
+    padding-top: 5%;
+}
+
+#articles {
+    display: inline-block;
+    overflow: auto;
+    width: 60%;
+    height: 700px;
+}
+
+#notes {
+    float: right;
+    width: 30%;
+}
+
+textarea,
+input {
+    display: block;
+    width: 100%;
+    background-color: black;
+    color: white;
+}
+
+input {
+    height: 36px;
+    font-size: 24px;
+}
+
+textarea {
+    height: 200px;
+    font-size: 18px;
+}
