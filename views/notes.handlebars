@@ -6,23 +6,16 @@
     </div>
     <div class="row">
         <div class="col-12">
-            <h3 data-id="{{article._id}}">Article Title {{article.title}}</h3>
+            <h3 data-id="{{article._id}}">Article Title: </h3>
         </div>
     </div>
     <div class="row">
-        <div class="col-12">
+        <div class="col-8">
             <ul class="list-group">
                 <li class="list-group-item">
                     <div class="row">
-                        <div class="col-4">
+                        <div class="col-8">
                             <h4>{{article.title}}</h4>
-                        </div>
-                        <div class="col-0"></div>
-                        <div class="col-5">
-                            <p>{{url}}</p>
-                            <p><a href="{{url}}">{{url}}</a></p>
-                        </div>
-                        <div class="col-3">
                         </div>
                     </div>
                 </li>
@@ -31,21 +24,22 @@
         </div> 
     </div>
     <div class="row">
-        <div id="note-list" class="col-12">
+        <div id="note-list" class="col-8">
             <p>Notes for this article:</p>
             <ul class="list-group">
-                {{#each article.note}}
+                {{#each article.notes}}
                 <li class="list-group-item">
                     <div class="row">
-                        <div class="col-4">
-                            <h4>{{title}}</h4>
+                        <div class="col-3">
+                            <h4>{{username}}</h4>
                         </div>
                         <div class="col-0"></div>
-                        <div class="col-5">
-                            <p>{{body}}</p>
+                        <div class="col-4">
+                            <p>{{text}}</p>
                         </div>
-                        <div class="col-3">
-                            <button class="btn btn-primary delete" type="button" data-id="{{_id}}">Delete Note</button>
+                        <div class="col-1">
+                            <a href="/notes/delete/{{_id}}">
+                            <button id="delete-note" class="btn btn-danger delete" type="button" data-id="{{_id}}">Delete</button></a>
                         </div>
                     </div>
                 </li>
@@ -55,15 +49,15 @@
         </div> 
     </div>
     <div class="row">
-        <div class="col-7">
+        <div class="col-8">
             <form>
                 <div class="form-group">
-                    <label for="new-title">Title:</label>
-                    <input type="text" class="form-control" id="new-title">
+                    <label for="new-username"></label>
+                    <input type="text" class="form-control" placeholder="Username" id="new-username">
                 </div>
                 <div class="form-group">
-                    <label for="new-body"></label>
-                    <textarea class="form-control" rows="4" placeholder="Enter your note..." id="new-body"></textarea>
+                    <label for="new-text"></label>
+                    <textarea class="form-control" rows="4" placeholder="Enter your note..." id="new-text"></textarea>
                 </div>
                 <button type="button" class="btn btn-primary post" data-id="{{article._id}}">Post Note</button>
             </form>

@@ -14,14 +14,15 @@ body {
 
 .btn {
     color: black;
+    margin-bottom: 10px;
 }
 
 .list-group-item {
     background-color: lightgrey;
 }
 
-#note {
-    margin-bottom: 10px;
+.list-group {
+    color: black;
 }
 
 .jumbotron {

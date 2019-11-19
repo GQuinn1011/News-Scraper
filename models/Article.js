@@ -22,7 +22,7 @@
           required: true
       },
 
-      note: [{
+      notes: [{
 
           type: Schema.Types.ObjectId,
 

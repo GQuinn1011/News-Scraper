@@ -1,15 +1,14 @@
 $(document).on("click", ".post", function() {
-    console.log("post");
+        console.log("post");
 
-    var thisId = $(this).attr("data-id");
-    console.log(thisId);
-    if ($("#new-title").val() != "" && $("#new-body").val() != "") {
+        var thisId = $(this).attr("data-id");
+        console.log(thisId);
         $.ajax({
             method: "POST",
             url: "/articles/" + thisId,
             data: {
-                username: $("#new-title").val(),
-                text: $("#new-body").val()
+                username: $("#new-username").val(),
+                text: $("#new-text").val()
             }
         })
 
@@ -21,10 +20,11 @@ $(document).on("click", ".post", function() {
         });
 
 
-        $("#new-title").val("");
-        $("#new-body").val("");
-    }
-});
+        $("#new-username").val("");
+        $("#new-text").val("");
+
+    })
+    // });
 
 $(document).on("click", ".delete", function() {
     console.log("delete");

@@ -3,27 +3,15 @@ var bodyParser = require("body-parser");
 var logger = require("morgan");
 var mongoose = require("mongoose");
 var exphbs = require("express-handlebars");
-
-
-var request = require("request");
 var axios = require("axios");
 var cheerio = require("cheerio");
-
-// Require all models
 var db = require("./models");
-
+var request = require("request");
 var PORT = process.env.PORT || 3000;
-
-// Initialize Express
 var app = express();
 
-// Configure middleware
-
-// Use morgan logger for logging requests
 app.use(logger("dev"));
-// Use body-parser for handling form submissions
 app.use(bodyParser.urlencoded({ extended: true }));
-// Use express.static to serve the public folder as a static directory
 app.use(express.static("public"));
 
 // Handlebars
@@ -51,7 +39,6 @@ if (process.env.MONGODB_URI) {
 
 // Route for getting all Articles from the db
 app.get("/", function(req, res) {
-    // Grab every document in the Articles collection
     db.Article.find({})
         .then(function(dbArticle) {
             res.render("index", { articles: dbArticle });
@@ -62,18 +49,27 @@ app.get("/", function(req, res) {
             res.json(err);
         });
 });
+app.get("/notes", function(req, res) {
+    // Grab every document in the Articles collection
+    db.Note.find({})
+        .then(function(dbNote) {
+            // If we were able to successfully find Articles, send them back to the client
+            res.json(dbNote);
+        })
+        .catch(function(err) {
+            // If an error occurred, send it to the client
+            res.json(err);
+        });
+});
 
-// A GET route for scraping the Dressage-News website
+// A GET route for scraping website
 app.get("/scrape", function(req, res) {
-    // First, we grab the body of the html with request
-    axios.get("http://www.macrumors.com/").then(function(response) {
+    axios.get("https://www.macrumors.com/").then(function(response) {
 
         var $ = cheerio.load(response.data);
         $(".article").each(function(i, element) {
-            // Save an empty result object
             var result = {};
 
-            // Add the text and href of every link, and save them as properties of the result object
             result.title = $(this)
                 .children(".title")
                 .text();
@@ -91,59 +87,46 @@ app.get("/scrape", function(req, res) {
                 .attr("data-src");
 
 
-            // Check to see if the article already exists in the database; if it does, don't add another copy; 
-            // but if it doesn't, then insert the article into the database
+            // Checks for duplicate entries in db if none add article
             db.Article.findOneAndUpdate({ title: result.title }, result, { upsert: true })
                 .then(function(dbArticle) {
-                    // View the added result in the console
                     console.log(dbArticle);
-
                 })
                 .catch(function(err) {
-                    // If an error occurred, send it to the client
                     return res.json(err);
                 });
         });
-
-        // If we were able to successfully scrape and save an Article, send a message to the client
         res.send("Scrape Complete");
     });
 });
 
-// Route for grabbing a specific Article by id, populate it with its comments
+// Route for grabbing a specific Article by id, populate it with notes
 app.get("/articles/:id", function(req, res) {
-    // Using the id passed in the id parameter, prepare a query that finds the matching one in our db...
     db.Article.findOne({ _id: req.params.id })
-        // ..and populate all of the comments associated with it
         .populate("notes")
         .then(function(dbArticle) {
-            // If we were able to successfully find an Article with the given id, send it back to the client
             res.render("notes", { article: dbArticle });
-            //res.json(dbArticle);
         })
         .catch(function(err) {
-            // If an error occurred, send it to the client
             res.json(err);
         });
 });
 
 app.post("/articles/:id", function(req, res) {
-    // Create a new comment and pass the req.body to the entry
+    // Create a new note and pass the req.body to the entry
     db.Note.create(req.body)
         .then(function(dbNote) {
             return db.Article.findOneAndUpdate({ _id: req.params.id }, { $push: { notes: dbNote._id } }, { new: true });
         })
         .then(function(dbArticle) {
-            // If we were able to successfully update an Article, send it back to the client
             res.json(dbArticle);
         })
         .catch(function(err) {
-            // If an error occurred, send it to the client
             res.json(err);
         });
 });
 
-// Delete One from the DB
+// Delete article from the DB
 app.delete("/delete/:id", function(req, res) {
 
     db.Article.deleteOne({
@@ -162,6 +145,7 @@ app.delete("/delete/:id", function(req, res) {
         }
     );
 });
+// Delete note from article
 app.delete("/note/delete/:id", function(req, res) {
 
     db.Note.deleteOne({

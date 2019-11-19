@@ -2,12 +2,12 @@
     <div class="row">
         <div id="title" class="col-12">
             <h1>Macrumors News Scraper</h1>
-                <button class="btn btn-primary scrape" type="button">Scrape Articles</button>
+                <button class="btn btn-primary scrape" type="button">Get Articles</button>
         </div>
     </div>
     <div class="row">
         <div class="col-12">
-            <p>Scraped articles:</p>
+            <p>Articles:</p>
         </div>
     </div>
     <div class="row">
@@ -16,28 +16,27 @@
                 {{#each articles}}
                 <li class="list-group-item">
                     <div class="row">
-                        <div class="col-4">
+                        <div class="col-3">
                             <div class="images">
                             <img class="image" src={{img}} height="175" width="200" alt="" onerror="this.src='/macrumors-icon.png';" alt="Missing Image" />
-                            {{!-- <img class='backup_picture' src='/public/macrumors-icon.png' /> --}}
                             </div>
                         </div>
-                        <div class="col-3">
+                        <div class="col-7">
                             <h4>{{title}}</h4>
-                        </div>
-                        <div class="col-0"></div>
-                        <div class="col-3">
-                            <p>{{summary}}</p>
-                            <p><a href="{{url}}" target= "_blank">View Article on site</a></p>
+                            <br>
                              <p>{{byline}}</p>
                         </div>
+                        <div class="col-0"></div>
                         <div class="col-2">
                             <br>
+                            <a href="{{url}}" target= "_blank">
+                            <button id="article" class="btn" type="button" data-id="{{_id}}">View Article</button></a>
                             <a href="/articles/{{_id}}">
-                            <button id="note" class="btn btn-primary" type="button" data-id="{{_id}}">View Notes</button></a>
+                            <button id="note" class="btn btn" type="button" data-id="{{_id}}">View Notes</button></a>
                             <br>
-                               <a href="/delete/{{_id}}">
-                            <button id="delete" class="btn btn-danger delete" type="button" data-id="{{_id}}">Delete</button></a>
+                            <a href="/delete/{{_id}}">
+                            <button id="delete" class="btn delete" type="button" data-id="{{_id}}">Delete</button></a>
+                            <br>
                         </div>
                     </div>
                 </li>
