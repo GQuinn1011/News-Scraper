@@ -4,6 +4,7 @@
 
 This app uses Node, Express, MongodB, and Handlebars to scrape news articles from Macrumors.com. You have the ability to create and delete notes for each of the articles as well as the articles themselves. So start scraping the news! 
 
+https://young-escarpment-72088.herokuapp.com/
 
 ### Prerequisites
 
